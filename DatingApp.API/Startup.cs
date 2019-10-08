@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
+
 namespace DatingApp.API {
     public class Startup {
         public Startup (IConfiguration configuration) {
@@ -32,6 +33,7 @@ namespace DatingApp.API {
             services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_1);
             services.AddCors ();
             services.AddScoped<IAuthRepository,AuthRepository>();// it uses on instance each repository
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -45,6 +47,7 @@ namespace DatingApp.API {
                     };
 
                 });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +62,7 @@ namespace DatingApp.API {
             // app.UseHttpsRedirection();
             app.UseCors (x => x.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
             app.UseAuthentication();
+
             app.UseMvc ();
         }
     }
